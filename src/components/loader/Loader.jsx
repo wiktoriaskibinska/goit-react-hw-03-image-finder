@@ -1,8 +1,9 @@
 import React from 'react';
 import { Hearts } from 'react-loader-spinner';
+import css from './Loader.module.css';
 const Loader = () => {
   return (
-    <div>
+    <div className={css.loaderWrapper}>
       <Hearts
         visible={true}
         height="80"
