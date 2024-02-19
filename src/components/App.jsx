@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ImageGallery from './imageGallery/ImageGallery';
 import axios from 'axios';
 import Searchbar from './searchbar/Searchbar.jsx';
+import Button from './button/Button';
+import Loader from './loader/Loader';
 const API_KEY = '41240894-272bca1f2c3dcb1548b81eb12';
 
 export class App extends Component {
@@ -87,8 +89,10 @@ export class App extends Component {
         )}
 
         {images.length > 0 && totalPages !== currentPage && !isLoading && (
-          <button onClick={this.handleNextPage}>Load more</button>
+          <Button onHandleNextPage={this.handleNextPage} />
         )}
+
+        {isLoading && <Loader />}
       </div>
     );
   }
