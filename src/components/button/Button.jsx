@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './Button.module.css';
+import PropTypes from 'prop-types';
 
 const Button = ({ onHandleNextPage }) => {
   return (
@@ -8,5 +9,7 @@ const Button = ({ onHandleNextPage }) => {
     </button>
   );
 };
-
+Button.propTypes = {
+  onHandleNextPage: PropTypes.func,
+};
 export default Button;

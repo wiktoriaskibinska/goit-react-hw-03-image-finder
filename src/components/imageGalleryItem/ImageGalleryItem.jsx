@@ -1,9 +1,21 @@
 import React from 'react';
-const ImageGalleryItem = ({ image }) => {
+import PropTypes from 'prop-types';
+import css from './ImageGalleryItem.module.css';
+const ImageGalleryItem = ({ image, handleImageClick }) => {
   return (
-    <li>
-      <img src={image.largeImageURL} alt="" />
+    <li className={css.galleryItem}>
+      <img
+        className={css.galleryImg}
+        src={image.webformatURL}
+        alt=""
+        onClick={() => handleImageClick(image.largeImageURL)}
+      />
     </li>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  image: PropTypes.object,
+  handleImageClick: PropTypes.func,
 };
 export default ImageGalleryItem;

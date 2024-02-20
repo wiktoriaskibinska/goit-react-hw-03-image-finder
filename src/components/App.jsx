@@ -4,6 +4,8 @@ import axios from 'axios';
 import Searchbar from './searchbar/Searchbar.jsx';
 import Button from './button/Button';
 import Loader from './loader/Loader';
+import Modal from './modal/Modal';
+
 const API_KEY = '41240894-272bca1f2c3dcb1548b81eb12';
 
 export class App extends Component {
@@ -17,6 +19,8 @@ export class App extends Component {
       images: [],
       isLoading: false,
       totalPages: '',
+      selectedImage: '',
+      show: false,
     };
   }
 
@@ -68,14 +72,25 @@ export class App extends Component {
       }
     });
   };
+  handleImageClick = imageUrl => {
+    this.setState({ selectedImage: imageUrl, show: true });
+    console.log(this.state.selectedImage);
+  };
+  hideModal = () => {
+    this.setState({ selectedImage: '', show: false });
+  };
 
   render() {
-    const { images, isLoading, currentPage, totalPages } = this.state;
+    const { images, isLoading, currentPage, totalPages, selectedImage, show } =
+      this.state;
     return (
       <div className="App">
         <Searchbar onSubmit={this.onSubmit} />
         {images.length > 0 ? (
-          <ImageGallery images={this.state.images} />
+          <ImageGallery
+            images={this.state.images}
+            handleImageClick={this.handleImageClick}
+          />
         ) : (
           <p
             style={{
@@ -91,7 +106,11 @@ export class App extends Component {
         {images.length > 0 && totalPages !== currentPage && !isLoading && (
           <Button onHandleNextPage={this.handleNextPage} />
         )}
-
+        {show ? (
+          <Modal imageUrl={selectedImage} onClose={this.hideModal} />
+        ) : (
+          ''
+        )}
         {isLoading && <Loader />}
       </div>
     );
